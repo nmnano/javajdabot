@@ -1,6 +1,7 @@
 package me.nmnothingmatters.listeners;
 
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -19,27 +20,6 @@ import java.util.Random;
 import static java.lang.Math.random;
 
 public class eventlistener extends ListenerAdapter {
-    @Override
-    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
-
-        User user = event.getUser();
-        String emoji = event.getReactionEmote().getAsReactionCode();
-        String channelMention = event.getChannel().getAsMention();
-
-
-        String channelId = "1170717395652968509";
-        TextChannel channel = event.getGuild().getTextChannelById(channelId);
-        TextChannel targetChannel = event.getGuild().getTextChannelById("1170717395652968509");
-
-        if (channel != null && targetChannel != null) {
-            String message = user.getAsTag() + " reacted to a message with " + emoji + " in the " + channelMention + " channel!";
-            targetChannel.sendMessage(message).queue();
-        } else {
-            // Handle the case when either the specified channel or the target channel does not exist
-            System.out.println("Either the specified channel or the target channel does not exist.");
-        }
-    }
-
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
@@ -65,12 +45,13 @@ public class eventlistener extends ListenerAdapter {
         String message = event.getMessage().getContentRaw();
 
         if (message.equalsIgnoreCase("!ping")) {
-            event.getChannel().sendMessage("pong!").queue();
+            event.getChannel().sendMessage("Провірка зв'язку... 415 база").queue();
         }
 
         if (message.equalsIgnoreCase("!Date")) {
             Date now = new Date();
             event.getChannel().sendMessage(now.toString()).queue();
+
 
 
         }
